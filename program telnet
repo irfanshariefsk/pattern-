@@ -1,0 +1,24 @@
+import getpass
+import sys
+import Telnetlib
+Host = "192.168.0.15" 
+user = raw_input ("enter your telnet username: ")
+password = getpass.getpass()
+tn = telentlib.telnet(Host)
+tn.read_until ("username: ")
+tn.write (user + "\n")
+if password:
+    tn.read_until ("password: ")
+    tn.write_until (password + "\n")
+tn.write("enable")
+tn.write("cisco\n")
+tn.write("config t\n")
+tn.write("intloop loop 0\n")
+tn.write("ipaddress 1.1.1.1 255.255.255.255\n")
+tn.write("intloop 1\n")
+tn.write("ipaddress 2.2.2.2 255.255.255.255\n")
+tn.write("route ospf1 \n")
+tn.write("network 0.0.0.0 255.255.255.255 area0\n")
+tn.write ("end\n")
+tn.write ("exit\n")
+printtn.read_all()
